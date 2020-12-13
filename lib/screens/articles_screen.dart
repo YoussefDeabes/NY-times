@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class ArticlesScreen extends StatefulWidget {
@@ -23,16 +21,20 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
   Widget _getBody() {
     return ListView.builder(
       itemBuilder: (ctx, index) => _getListItem(),
+      itemCount: 5,
     );
   }
 
   Widget _getListItem() {
-    return Row(
-      children: [
-        _getCircleAvatar(),
-        _getArticleDetailsColumn(),
-        _getArrowIcon()
-      ],
+    return Container(
+      margin: EdgeInsets.all(10),
+      child: ListTile(
+        leading: _getCircleAvatar(),
+        title: _getTitle(),
+        subtitle: _getAuthor(),
+        trailing: _getArrowIcon(),
+        onTap: () {},
+      ),
     );
   }
 
@@ -40,34 +42,60 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
     return CircleAvatar();
   }
 
-  Widget _getArticleDetailsColumn() {
-    Column(
-      children: [
-        _getTitle(),
-        _getAuthor(),
-        _getDate(),
-      ],
+  Widget _getTitle() {
+    return Text.rich(
+      TextSpan(
+        text: "Supporters of the democratic candidate Jon Ossoff after his ...",
+      ),
+      maxLines: 2,
     );
   }
 
-  Widget _getTitle() {
-    return Text("");
-  }
-
   Widget _getAuthor() {
-    return Text('');
+    return Text.rich(
+      TextSpan(
+        style: TextStyle(
+          color: Colors.grey,
+        ),
+        children: [
+          TextSpan(
+            text: 'By DAVID LEOHARDT AND STAURT A. THOMPSON',
+          ),
+          WidgetSpan(
+            child: SizedBox(
+              width: 50,
+            ),
+          ),
+          WidgetSpan(
+            child: Icon(
+              Icons.event,
+              color: Colors.grey,
+            ),
+          ),
+          TextSpan(
+            text: ' 2017-06-23',
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _getDate() {
     return Row(
       children: [
         Icon(Icons.event),
-        Text('data'),
+        Text(
+          '2017-06-23',
+          style: TextStyle(color: Colors.grey),
+        ),
       ],
     );
   }
 
   Widget _getArrowIcon() {
-    return Icon(Icons.arrow_forward_ios_outlined);
+    return IconButton(
+      icon: Icon(Icons.arrow_forward_ios_outlined),
+      onPressed: () {},
+    );
   }
 }
